@@ -1,0 +1,88 @@
+# get the user to deposit any amounts of cash they choose from
+# create a slot machine with lines to pick from and display it to the user
+# get the betting amount of the user and how many of the lines that they want to bet on  each game run
+#display wins display, credit left
+
+import random
+user_deposit = 0
+credit = 0
+try: user_deposit = int(input("enter deposit to play "))
+except ValueError:
+  print("please enter a number")
+
+
+
+
+
+
+def deposit():
+  global credit
+  global user_deposit
+  credit = user_deposit
+  print("your credit", credit)
+  if not isinstance(user_deposit, int):
+      return
+deposit()
+
+
+# while the user does not choose exit run the program again and again.
+#gamerunning = False
+## get the user to choose how many times they want to play 
+# if the user enters a valid number run the code else tell them to enter a number
+# run the program until the user chooses themselves to exit
+
+
+def slot_machine():
+  play = None
+  global credit
+  while True:
+      if credit  <= 0:
+           print("your credit is zero, better luck for next time")
+           break
+      play = (input("enter how many times you want to run the slot machine or type 'exit' to get out of the game. "))
+      
+      if play == "exit":
+           print("goodbye")
+           break
+      elif isinstance(play,int):
+            pass
+      else:
+             print("please enter a number or exit to get out")
+
+
+      try:
+           play = int(play)
+       
+      except ValueError:
+            pass
+            continue
+
+    
+      for i in range(play):
+             lines = ["F", "K", "M", "JACKPOT"]
+             numbers = 3
+             choices =  random.choices(lines,k=numbers)
+             print(choices)
+    
+      if all (choice == "F" for choice in  choices[:3]):
+          credit += 10
+      else:     
+             credit -= 5
+             print(credit)
+      if all (choice == "K" for choice in choices [:3]):
+          credit += 10
+      else:
+             credit -= 5
+             print(credit)
+      if all (choice == "M" for choice in choices [:3]):
+             credit += 10
+      else: 
+             credit-= 5
+             print(credit)
+      if  all (choice == "JACKPOT" for choice in choices [:3]):
+             credit += 90
+             print(credit)
+      else:
+            credit -= 5
+            print(credit)
+slot_machine()
